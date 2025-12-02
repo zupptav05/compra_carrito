@@ -1,0 +1,168 @@
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            
+            <div class="footer-sections">
+               
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>TechStore</h3>
+                    </div>
+                    <p class="footer-description">
+                        Tu tienda de confianza para los mejores productos tecnológicos. 
+                        Calidad, innovación y el mejor servicio en un solo lugar.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Enlaces Rápidos -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                        <li><a href="/products"><i class="fas fa-chevron-right"></i> Productos</a></li>
+                        <li><a href="/cart"><i class="fas fa-chevron-right"></i> Carrito</a></li>
+                        <li><a href="/about"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
+                        <li><a href="/contact"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categorías -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Categorías</h4>
+                    <ul class="footer-links">
+                        <li><a href="/products?category=Smartphones"><i class="fas fa-mobile-alt"></i> Smartphones</a></li>
+                        <li><a href="/products?category=Laptops"><i class="fas fa-laptop"></i> Laptops</a></li>
+                        <li><a href="/products?category=Tablets"><i class="fas fa-tablet-alt"></i> Tablets</a></li>
+                        <li><a href="/products?category=Audio"><i class="fas fa-headphones"></i> Audio</a></li>
+                        <li><a href="/products?category=Gaming"><i class="fas fa-gamepad"></i> Gaming</a></li>
+                    </ul>
+                </div>
+
+                <!-- Información de Contacto -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Av. Tecnología 123<br>Ciudad de México, CDMX</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+52 55 1234 5678</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@techstore.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Lun - Vie: 9:00 - 18:00<br>Sáb: 10:00 - 14:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Newsletter</h4>
+                    <p class="newsletter-text">Suscríbete para recibir ofertas exclusivas y novedades.</p>
+                    <form class="newsletter-form">
+                        <div class="input-group">
+                            <input type="email" placeholder="Tu correo electrónico" class="newsletter-input">
+                            <button type="submit" class="newsletter-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="payment-methods">
+                        <p>Aceptamos:</p>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa" title="Visa"></i>
+                            <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                            <i class="fab fa-cc-amex" title="American Express"></i>
+                            <i class="fab fa-cc-paypal" title="PayPal"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Línea Divisoria -->
+            <div class="footer-divider"></div>
+
+            <!-- Copyright y Enlaces Legales -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2024 TechStore. Todos los derechos reservados.</p>
+                    </div>
+                    <div class="legal-links">
+                        <a href="/privacy">Política de Privacidad</a>
+                        <a href="/terms">Términos de Servicio</a>
+                        <a href="/cookies">Política de Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón Volver Arriba -->
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <% if (typeof script !== 'undefined') { %>
+        <script src="<%= script %>"></script>
+    <% } %>
+    
+    <script>
+        // Funcionalidad para el botón "Volver arriba"
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Cerrar notificaciones flash
+        document.querySelectorAll('.flash-close').forEach(button => {
+            button.addEventListener('click', function() {
+                this.parentElement.style.opacity = '0';
+                setTimeout(() => {
+                    this.parentElement.remove();
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

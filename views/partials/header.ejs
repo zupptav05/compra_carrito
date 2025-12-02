@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - TechStore</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .cart-badge {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            min-width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <!-- Logo y Brand -->
+                <div class="nav-brand">
+                    <a href="/" class="logo-link">
+                        <div class="logo-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <span class="logo-text">TechStore</span>
+                    </a>
+                </div>
+
+                <!-- Menú Principal -->
+                <div class="nav-menu" id="navMenu">
+                    <ul class="nav-links">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link <%= title === 'Inicio' ? 'active' : '' %>">
+                                <i class="fas fa-home"></i>
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="/products" class="nav-link <%= title === 'Productos' ? 'active' : '' %>">
+                                <i class="fas fa-box-open"></i>
+                                <span>Productos</span>
+                            </a>
+                        </li>
+
+                        <% if (user) { %>
+                            <!-- Carrito con Badge -->
+                            <li class="nav-item">
+                                <a href="/cart" class="nav-link nav-cart <%= title === 'Carrito de Compras' ? 'active' : '' %>">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>Carrito</span>
+                                    <% if ((cartCount || 0) > 0) { %>
+                                        <span class="cart-badge">
+                                            <%= cartCount %>
+                                        </span>
+                                    <% } %>
+                                </a>
+                            </li>
+
+                            <!-- Historial de Compras -->
+                            <li class="nav-item">
+                                <a href="/orders/history" class="nav-link <%= title === 'Historial de Compras' ? 'active' : '' %>">
+                                    <i class="fas fa-history"></i>
+                                    <span>Mis Compras</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú Usuario -->
+                            <li class="nav-item user-menu-container">
+                                <div class="user-trigger">
+                                    <div class="user-avatar">
+                                        <%= user.name.charAt(0).toUpperCase() %>
+                                    </div>
+                                    <span class="user-name"><%= user.name %></span>
+                                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                </div>
+                                <div class="user-dropdown">
+                                    <div class="dropdown-header">
+                                        <div class="user-avatar large">
+                                            <%= user.name.charAt(0).toUpperCase() %>
+                                        </div>
+                                        <div class="user-info">
+                                            <strong><%= user.name %></strong>
+                                            <span><%= user.email %></span>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="/orders/history" class="dropdown-item">
+                                        <i class="fas fa-shopping-bag"></i>
+                                        Mis Pedidos
+                                    </a>
+                                    <a href="/auth/logout" class="dropdown-item logout">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        Cerrar Sesión
+                                    </a>
+                                </div>
+                            </li>
+                        <% } else { %>
+                            <!-- Menú para usuarios no logueados -->
+                            <li class="nav-item">
+                                <a href="/auth/login" class="nav-link <%= title === 'Iniciar Sesión' ? 'active' : '' %>">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    <span>Iniciar Sesión</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/auth/register" class="nav-link register-btn <%= title === 'Registro' ? 'active' : '' %>">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span>Registrarse</span>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
+
+                <!-- Botón Menú Móvil -->
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Notificaciones Flash -->
+    <% if (typeof messages !== 'undefined' && messages.length) { %>
+        <div class="flash-messages">
+            <% messages.forEach(message => { %>
+                <div class="flash-message flash-<%= message.type %>">
+                    <i class="fas fa-<%= message.type === 'success' ? 'check-circle' : message.type === 'error' ? 'exclamation-circle' : 'info-circle' %>"></i>
+                    <span><%= message.text %></span>
+                    <button class="flash-close">&times;</button>
+                </div>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <main class="main-content">
