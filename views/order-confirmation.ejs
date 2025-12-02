@@ -1,0 +1,104 @@
+<%- include('partials/header', { title: 'Confirmación de Orden' }) %>
+
+<div class="order-confirmation-container">
+    <div class="confirmation-header">
+        <div class="confirmation-icon">✅</div>
+        <h1>¡Compra Exitosa!</h1>
+        <p class="confirmation-subtitle">Gracias por tu compra, <%= user.name %></p>
+    </div>
+
+    <div class="confirmation-content">
+        <div class="order-summary">
+            <div class="summary-card">
+                <h2>Resumen de la Orden</h2>
+                
+                <div class="order-info">
+                    <div class="info-row">
+                        <span>Número de Orden:</span>
+                        <strong>#<%= order.order_id %></strong>
+                    </div>
+                    <div class="info-row">
+                        <span>Fecha:</span>
+                        <span><%= new Date(order.created_at).toLocaleDateString('es-MX', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }) %></span>
+                    </div>
+                    <div class="info-row">
+                        <span>Estado:</span>
+                        <span class="status-completed">Completado</span>
+                    </div>
+                </div>
+
+                <div class="order-items">
+                    <h3>Productos Comprados</h3>
+                    <% orderDetails.forEach(detail => { %>
+                    <div class="order-item">
+                        <div class="item-image">
+                            <img src="/images/<%= detail.image %>" alt="<%= detail.name %>">
+                        </div>
+                        <div class="item-details">
+                            <h4><%= detail.name %></h4>
+                            <p>Cantidad: <%= detail.quantity %></p>
+                            <p>Precio unitario: $<%= detail.price %></p>
+                        </div>
+                        <div class="item-total">
+                            $<%= (detail.quantity * detail.price).toFixed(2) %>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+
+                <div class="order-total-section">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span>$<%= orderDetails.reduce((sum, item) => sum + (item.quantity * item.price), 0).toFixed(2) %></span>
+                    </div>
+                    <div class="total-row">
+                        <span>Envío:</span>
+                        <span>Gratis</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>Total:</span>
+                        <span>$<%= order.total %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="confirmation-actions">
+            <div class="action-buttons">
+                <button onclick="window.print()" class="btn btn-primary">
+                    🖨️ Imprimir Comprobante
+                </button>
+                <button onclick="exportToPDF()" class="btn btn-outline">
+                    📄 Descargar PDF
+                </button>
+                <a href="/products" class="btn btn-outline">
+                    🛍️ Seguir Comprando
+                </a>
+            </div>
+
+            <div class="shipping-info">
+                <h3>Información de Envío</h3>
+                <p><strong>Dirección de envío:</strong> <%= user.name %>, <%= user.email %></p>
+                <p><strong>Tiempo de entrega estimado:</strong> 2-3 días hábiles</p>
+                <p><strong>Método de envío:</strong> Estándar (Gratis)</p>
+            </div>
+
+            <div class="support-info">
+                <h3>¿Necesitas ayuda?</h3>
+                <p>Si tienes alguna pregunta sobre tu pedido, contáctanos:</p>
+                <ul>
+                    <li>📧 soporte@techstore.com</li>
+                    <li>📞 +52 55 1234 5678</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

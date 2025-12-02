@@ -1,0 +1,82 @@
+<%- include('partials/header', { title: 'Registro' }) %>
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Crear Cuenta</h1>
+            <p>Regístrate para empezar a comprar</p>
+        </div>
+
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <form action="/auth/register" method="POST" class="auth-form" data-validate="true">
+            <div class="form-group">
+                <label for="name">Nombre Completo:</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    required 
+                    value="<%= typeof name !== 'undefined' ? name : '' %>"
+                    placeholder="Tu nombre completo"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required 
+                    value="<%= typeof email !== 'undefined' ? email : '' %>"
+                    placeholder="tu@email.com"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <div class="password-input">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        placeholder="Mínimo 6 caracteres"
+                        minlength="6"
+                    >
+                    <button type="button" class="toggle-password">👁️</button>
+                </div>
+                <small class="form-help">La contraseña debe tener al menos 6 caracteres</small>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Contraseña:</label>
+                <div class="password-input">
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword" 
+                        required 
+                        placeholder="Repite tu contraseña"
+                        minlength="6"
+                    >
+                    <button type="button" class="toggle-password">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>¿Ya tienes cuenta? <a href="/auth/login">Inicia sesión aquí</a></p>
+            <p><a href="/">← Volver al inicio</a></p>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

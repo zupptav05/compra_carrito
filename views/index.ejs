@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Bienvenido a TechStore</h1>
+            <p>Los mejores productos tecnológicos al mejor precio</p>
+            <a href="/products" class="btn btn-primary">Ver Productos</a>
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <h3>🚀 Envío Rápido</h3>
+                <p>Recibe tus productos en 24-48 horas</p>
+            </div>
+            <div class="feature">
+                <h3>💳 Pago Seguro</h3>
+                <p>Transacciones protegidas y cifradas</p>
+            </div>
+            <div class="feature">
+                <h3>🔒 Garantía</h3>
+                <p>Todos nuestros productos tienen garantía</p>
+            </div>
+        </section>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

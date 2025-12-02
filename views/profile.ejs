@@ -1,0 +1,101 @@
+<%- include('partials/header', { title: 'Historial de Compras' }) %>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>Mi Cuenta</h1>
+        <div class="user-welcome">
+            <h2>¡Hola, <%= user.name %>! 👋</h2>
+            <p>Bienvenido a tu panel de control</p>
+        </div>
+    </div>
+
+    <div class="profile-content">
+        <div class="profile-sidebar">
+            <div class="user-info-card">
+                <div class="user-avatar">
+                    👤
+                </div>
+                <h3><%= user.name %></h3>
+                <p><%= user.email %></p>
+                <div class="user-stats">
+                    <div class="stat">
+                        <span class="stat-number"><%= orders.length %></span>
+                        <span class="stat-label">Compras</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$<%= orders.reduce((sum, order) => sum + parseFloat(order.total), 0).toFixed(2) %></span>
+                        <span class="stat-label">Total Gastado</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="profile-nav">
+                <a href="/orders/history" class="nav-item active">📋 Historial de Compras</a>
+                <a href="/auth/logout" class="nav-item logout">🚪 Cerrar Sesión</a>
+            </nav>
+        </div>
+
+        <div class="profile-main">
+            <div class="orders-section">
+                <h2>Historial de Compras</h2>
+
+                <% if (orders.length === 0) { %>
+                    <div class="empty-orders">
+                        <div class="empty-icon">📦</div>
+                        <h3>Aún no tienes compras</h3>
+                        <p>¡Descubre nuestros productos y realiza tu primera compra!</p>
+                        <a href="/products" class="btn btn-primary">Ver Productos</a>
+                    </div>
+                <% } else { %>
+                    <div class="orders-list">
+                        <% orders.forEach(order => { %>
+                        <div class="order-card">
+                            <div class="order-header">
+                                <div class="order-info">
+                                    <h3>Orden #<%= order.id %></h3>
+                                    <p class="order-date">
+                                        📅 <%= new Date(order.created_at).toLocaleDateString('es-MX', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        }) %>
+                                    </p>
+                                </div>
+                                <div class="order-status">
+                                    <span class="status-badge status-<%= order.status %>">
+                                        <%= order.status === 'completed' ? 'Completado' : 
+                                           order.status === 'pending' ? 'Pendiente' : 
+                                           'Cancelado' %>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="order-details">
+                                <div class="order-products">
+                                    <p><strong>Productos:</strong> <%= order.products %></p>
+                                </div>
+                                <div class="order-total">
+                                    <strong>Total: $<%= parseFloat(order.total).toFixed(2) %></strong>
+                                </div>
+                            </div>
+
+                            <div class="order-actions">
+                                <a href="/orders/<%= order.id %>" class="btn btn-outline">
+                                    Ver Detalles
+                                </a>
+                                <button onclick="exportToPDF()" class="btn btn-outline">
+                                    📄 Exportar PDF
+                                </button>
+                            </div>
+                        </div>
+                        <% }); %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
